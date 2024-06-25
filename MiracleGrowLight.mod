@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ModuleFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<UiMod name="MiracleGrowLight" version="1.3.5" date="2021-05-23" >
+	<UiMod name="MiracleGrowLight" version="1.3.6" date="2024-06-25" >
     <VersionSettings gameVersion="1.4.8" windowsVersion="1.40" savedVariablesVersion="1.50" />
 
 		<Author name="Idrinth"/>

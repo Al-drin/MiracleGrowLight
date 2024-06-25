@@ -1,8 +1,9 @@
 MiracleGrowLight = {
     Settings={
-        mode={0, 0, 0, 0}
+        mode={0, 0, 0, 0},
+        playSounds=true
     },
-    version = "1.3.5"
+    version = "1.3.6"
 }
 
 local MiracleGrowLight = MiracleGrowLight;
@@ -15,6 +16,8 @@ local modeNames = {
     "Off",
     "First"
 }
+local playReadySound = {true, true, true, true};
+local playHarvestSound = {true, true, true, true};
 
 function MiracleGrowLight.onHover()
     local max=GameData.TradeSkillLevels[GameData.TradeSkills.CULTIVATION] or 0;
@@ -154,8 +157,18 @@ function MiracleGrowLight.OnUpdate(elapsed)
             WindowSetShowing(windowName.."Plant"..i.."Harvest",true)
             WindowSetShowing(windowName.."Plant"..i.."Button",false)
             DynamicImageSetTextureSlice(windowName.."Plant"..i.."HarvestIcon","Square-4");
+            if MiracleGrowLight.Settings.playSounds and playReadySound[i] then
+            	PlaySound(Sound.APOTHECARY_CONTAINER_ADDED);
+            	playReadySound[i] = false;
+            	playHarvestSound[i] = true;
+            end
         elseif cul.StageNum==0 or cul.StageNum == 255 then
         	DynamicImageSetTextureSlice(windowName.."Plant"..i.."ButtonIcon","Black-Slot");
+        	if MiracleGrowLight.Settings.playSounds and playHarvestSound[i] then
+            	PlaySound(Sound.CULTIVATING_HARVEST_CROP);
+            	playHarvestSound[i] = false;
+            	playReadySound[i] = true;
+            end
             if MiracleGrowLight.Settings.mode[i] ~= 2 and not isSeedless and GameData.Player.hitPoints.current > 0 then
                 local items=DataUtils.GetCraftingItems();
                 local seed=getSeed(items, max);
@@ -238,4 +251,12 @@ function MiracleGrowLight.Initialize()
     end
     MiracleGrowLight.onZone()
     MiracleGrowLight.switchBackground()
+end
+
+function MiracleGrowLight.SoundsOn()
+	MiracleGrowLight.Settings.playSounds = true;
+end
+
+function MiracleGrowLight.SoundsOff()
+	MiracleGrowLight.Settings.playSounds = false;
 end
