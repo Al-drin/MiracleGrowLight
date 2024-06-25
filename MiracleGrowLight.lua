@@ -255,8 +255,10 @@ end
 
 function MiracleGrowLight.SoundsOn()
 	MiracleGrowLight.Settings.playSounds = true;
+	TextLogAddEntry ("Chat", 0, L"MiracleGrowLight: Sounds ON!");
 end
 
 function MiracleGrowLight.SoundsOff()
 	MiracleGrowLight.Settings.playSounds = false;
+	TextLogAddEntry ("Chat", 0, L"MiracleGrowLight: Sounds ON!");
 end
